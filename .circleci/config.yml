@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  dockerize-and-release:
+    docker:
+      - image: cimg/base:stable
+    working_directory: /home/circleci/pg-gcs-backup
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build docker image
+          command: |
+            docker build -t zenikalabs/pg-gcs-backup .
+      - run:
+          name: Push docker image
+          command: |
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker push zenikalabs/pg-gcs-backup
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - dockerize-and-release:
+          filters:
+            branches:
+              only: main
