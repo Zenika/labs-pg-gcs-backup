@@ -20,6 +20,37 @@ In order to backup a database, the following environment variables must be set:
 To restore a backup, the following additional environment variable must be set:
 - `GCS_FILE` : The name of the backup file to restore 
 
+## Docker
+
+To backup a database using Docker:
+```shell
+docker run --rm -it \
+  -e PGHOST="Your host here" \
+  -e PGPORT="Your port here" \
+  -e PGDATABASE="Your database name here" \
+  -e PGUSER="Your postgres user here" \
+  -e PGPASSWORD="Your password value here" \
+  -e GCS_BUCKET="Your GCS bucket name here" \
+  -e GCS_KEY="Your GCS JSON here" \
+  zenikalabs/pg-gcs-backup
+```
+
+And to restore it on a fresh Postgres instance:
+```shell
+docker run --rm -it \
+  -e PGHOST="Your host here" \
+  -e PGPORT="Your port here" \
+  -e PGDATABASE="Your database name here" \
+  -e PGUSER="Your postgres user here" \
+  -e PGPASSWORD="Your password value here" \
+  -e GCS_BUCKET="Your GCS bucket name here" \
+  -e GCS_KEY="Your GCS JSON here" \
+  -e GCS_FILE="The name of the backup to restore here" \
+  zenikalabs/pg-gcs-backup restore
+```
+
+NB: remember that if the database is exposed on the host machine's `localhost`, `PGHOST` should be 
+`host.docker.internal` or `172.17.0.1`, but not `localhost` (which refers to the container's `localhost`).
 
 ## Kubernetes
 
