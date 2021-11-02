@@ -18,11 +18,13 @@ In order to backup a database, the following environment variables must be set:
 - `GCS_KEY`: The key (JSON) of the GCP service account to use.
 
 To restore a backup, the following additional environment variable must be set:
-- `GCS_FILE` : The name of the backup file to restore 
+
+- `GCS_FILE` : The name of the backup file to restore
 
 ## Docker
 
 To backup a database using Docker:
+
 ```shell
 docker run --rm -it \
   -e PGHOST="Your host here" \
@@ -36,6 +38,7 @@ docker run --rm -it \
 ```
 
 And to restore it on a fresh Postgres instance:
+
 ```shell
 docker run --rm -it \
   -e PGHOST="Your host here" \
@@ -49,12 +52,13 @@ docker run --rm -it \
   zenikalabs/pg-gcs-backup restore
 ```
 
-NB: remember that if the database is exposed on the host machine's `localhost`, `PGHOST` should be 
+NB: remember that if the database is exposed on the host machine's `localhost`, `PGHOST` should be
 `host.docker.internal` or `172.17.0.1`, but not `localhost` (which refers to the container's `localhost`).
 
 ## Kubernetes
 
-Here is a simple example of how to deploy it as a `CronJob` inside a Kubernetes cluster:
+Here is a simple example of how to deploy this tool as a `CronJob` inside a Kubernetes cluster to regularly backup a
+database:
 
 ```yaml
 apiVersion: batch/v1beta1
