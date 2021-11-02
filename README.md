@@ -7,9 +7,7 @@ A utility docker image to backup/restore a PostgreSQL database to/from Google Cl
 The docker image is available on the Docker Hub
 as [zenikalabs/pg-gcs-backup](https://hub.docker.com/r/zenikalabs/pg-gcs-backup).
 
-In order to run properly, the following environment variables must be set:
-
-To backup:
+In order to backup a database, the following environment variables must be set:
 
 - `PGHOST`: The PostgreSQL server host.
 - `PGPORT`: The PostgreSQL server port.
@@ -17,7 +15,11 @@ To backup:
 - `PGUSER`: The user to use when connecting to the PostgreSQL server.
 - `PGPASSWORD`: The password for this user.
 - `GCS_BUCKET`: The name of the Google Cloud Storage bucket to upload the backup files to.
-- `GCS_KEY`: The key (JSON) of the GCP service account to use (must have write permissions to the GCS bucket).
+- `GCS_KEY`: The key (JSON) of the GCP service account to use.
+
+To restore a backup, the following additional environment variable must be set:
+- `GCS_FILE` : The name of the backup file to restore 
+
 
 ## Kubernetes
 

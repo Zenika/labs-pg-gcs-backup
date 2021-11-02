@@ -8,7 +8,8 @@ RUN apk add --update \
 # Add backup/restore scripts
 COPY entrypoint.sh /
 COPY backup.sh /
-RUN chmod +x entrypoint.sh backup.sh
+COPY restore.sh /
+RUN chmod +x entrypoint.sh backup.sh restore.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["backup"]

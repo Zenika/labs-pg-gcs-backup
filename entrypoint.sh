@@ -4,7 +4,7 @@ set -Eeou pipefail
 if [ "$1" = "backup" ]; then
   sh -c "./backup.sh"
 elif [ "$1" = "restore" ]; then
-  echo "Restore"
+  sh -c "./restore.sh"
 else
   echo "Unrecognized command: $1"
   exit 1
